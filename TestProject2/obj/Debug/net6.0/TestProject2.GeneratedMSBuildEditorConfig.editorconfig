@@ -1,0 +1,10 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = TestProject2
+build_property.ProjectDir = C:\Users\diego\OneDrive - Bildungsdirektion\Schule-DESKTOP-63U463P-2\4AT\Technologie und Planung\wetransfer_projekt_2022-06-01_1403\neuesprojekt\TestProject2\
