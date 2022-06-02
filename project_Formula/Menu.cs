@@ -28,16 +28,20 @@ namespace project_Formula
         /// Standard-Konstruktor des Hauptmenüs
         /// </summary>
         public Menu()
-        {    
+        {
             openFolder();
             InitializeComponent();
             first = false;
+            test_Drehbuch t = new test_Drehbuch();
+            t.formeln_hzfg(folderpath);
         }
 
         public Menu(String folderpath)
         {
             this.folderpath = folderpath;
             openFolder();
+            test_Drehbuch x = new test_Drehbuch();
+            x.formeln_hzfg(folderpath);
             InitializeComponent();
         }
 
@@ -156,7 +160,7 @@ namespace project_Formula
         {
             this.Hide();
             var addformulalist = new AddFormulaList(folderpath);
-            addformulalist.Closed += (s, args) => { this.clearWindow(); this.openFolder(); this.Show();};
+            addformulalist.Closed += (s, args) => { this.clearWindow(); this.openFolder(); this.Show(); };
             addformulalist.Show();
         }
 
@@ -191,13 +195,13 @@ namespace project_Formula
                     i++;
                 }
             }
-            if(counter == 0)
+            if (counter == 0)
             {
                 MessageBox.Show("Keine Formelliste gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 setToStandard();
 
             }
-            else {search.Clear();}
+            else { search.Clear(); }
         }
 
         /// <summary>

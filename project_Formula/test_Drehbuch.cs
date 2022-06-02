@@ -24,8 +24,8 @@ namespace project_Formula
             list.Add("Kathete");
             list.Add("Ankathete");
 
-            fr = new Formula("Satz des Pythagoras", "a^2+b^2=c^2", list);
-            fr.addVersion("c=√(a^2+b^2)");
+            fr = new Formula("Satz des Pythagoras", "c^2=a^2+b^2", list);
+            fr.addVersion("a={c^2-b^2}^0.5");
             fr.addVersion("b=+-√(-a^2+c^2)");
 
             fl.addFormula(fr);
@@ -309,7 +309,7 @@ namespace project_Formula
         /// Diese funktion sollte beim ersten Ausführen des Programms auch ausgeführt werden. Sie fügt viele Standardformeln zur Prelist hinzu
         /// </summary>
         /// <param name="pathToFolder"></param>
-        
+
         public void formeln_hzfg(string pathToFolder)
         {
             FormulaList fl;
@@ -323,46 +323,13 @@ namespace project_Formula
             list.Add("Kathete");
             list.Add("Ankathete");
 
-            fr = new Formula("Satz des Pythagoras", "a^2+b^2=c^2", list);
-            fr.addVersion("c=√(a^2+b^2)");
-            fr.addVersion("b=+-√(-a^2+c^2)");
-
-            fl.addFormula(fr);
-
-
-            list = new List<string>();
-            list.Add("Zahl vor dem x^2");
-            list.Add("Zahl vor dem x");
-            list.Add("Zahl ohne x");
-
-            fr = new Formula("Mitternachtsformel", "x=(-b+-√(b^2-4ac))/(2a)", list);
-            fr.addVersion("-2x*a-√(b^2-4c*a)=b");
-            
-            fl.addFormula(fr);
-
-
-            list = new List<string>();
-            list.Add("a");
-            list.Add("b");
-
-            fr = new Formula("1. Binomische Formel", "(a+b)^2", list);
-            fr.addVersion("a^2+2*a*b+b^2");
-
-            fl.addFormula(fr);
-
-            fr = new Formula("2. Binomische Formel", "(a-b)^2", list);
-            fr.addVersion("a^2-2*a*b+b^2");
-
-            fl.addFormula(fr);
-            
-            fr = new Formula("3. Binomische Formel", "(a+b)*(a-b)", list);
-            fr.addVersion("a^2-b^2");
+            fr = new Formula("Satz des Pythagoras", "c^2=a^2+b^2", list);
+            fr.addVersion("a^2=c^2-b^2");
+            fr.addVersion("b^2=c^2-a^2");
 
             fl.addFormula(fr);
 
             PreList.addExistingFL(fl);
-
-
 
 
             fl = new FormulaList("TK");
@@ -384,7 +351,7 @@ namespace project_Formula
             list.Add("Frequenz");
 
             fr = new Formula("Omega berechnen", "w=2*π*f", list);
-            fr.addVersion("f=2/(2*π)");
+            fr.addVersion("f=2/{2*π}");
 
             fl.addFormula(fr);
 
@@ -393,11 +360,11 @@ namespace project_Formula
             list.Add("Strahlungsleistung");
             list.Add("Radius");
 
-            fr = new Formula("Strahlungsdichte", "S = P/(4*pi*r^2", list);
+            fr = new Formula("Strahlungsdichte", "S = P/{4*π*r^2}", list);
 
             fl.addFormula(fr);
 
-
+            PreList.addExistingFL(fl);
 
             fl = new FormulaList("Physik");
             list = new List<string>();
@@ -418,6 +385,8 @@ namespace project_Formula
             list.Add("Volumen");
 
             fr = new Formula("Dichte berechnen", "p=m/V", list);
+            fr.addVersion("V=p/m");
+            fr.addVersion("m=p*V");
 
             fl.addFormula(fr);
 
@@ -427,9 +396,10 @@ namespace project_Formula
             list.Add("Zweiter Hebelarm");
             list.Add("Kraft 2");
 
-            fr = new Formula("Hebelgesetz", "F*L=f*l", list);
-            fr.addVersion("F=(f*l)/L");
-
+            fr = new Formula("Hebelgesetz", "L={f*l}/F", list);
+            fr.addVersion("F={f*l}/L");
+            fr.addVersion("f={F*L}/l");
+            fr.addVersion("l={F*L}/f");
             fl.addFormula(fr);
 
 
@@ -439,7 +409,8 @@ namespace project_Formula
             list.Add("Fläche");
 
             fr = new Formula("Druck berechnen", "p=F/A", list);
-
+            fr.addVersion("F=p*A");
+            fr.addVersion("A=F/p");
             fl.addFormula(fr);
 
             list = new List<string>();
@@ -448,6 +419,8 @@ namespace project_Formula
             list.Add("Zeit");
 
             fr = new Formula("Arbeit", "W=F*s", list);
+            fr.addVersion("s=W/F");
+            fr.addVersion("F=W/s");
 
             fl.addFormula(fr);
 
@@ -460,8 +433,8 @@ namespace project_Formula
             list.Add("Volumen 2");
             list.Add("Volumen 1");
 
-            fr = new Formula("allgemeine Gasgleichung", "(V*P)/T=(v*p)/t", list);
-            fr.addVersion("V=(v*p*T)/(t*P)");
+            fr = new Formula("allgemeine Gasgleichung", "{V*P}/T={v*p}/t", list);
+            fr.addVersion("V={v*p*T}/{t*P}");
 
             fl.addFormula(fr);
 

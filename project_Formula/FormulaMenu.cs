@@ -78,7 +78,7 @@ namespace project_Formula
                 // Run rendering.
                 renderer.Render(version, stream, options, out size);
             }
-            formulaImage.Image = Image.FromFile(finalPath);                                            
+            formulaImage.Image = Image.FromFile(finalPath);
         }
 
         /// <summary>
@@ -103,21 +103,35 @@ namespace project_Formula
             }
 
             //Label für Variablennamen
+
             List<String> tmp2 = formula.getVarNames();
-            if(tmp2.Count == 0)
+            if (tmp2.Count == 0)
             {
                 return;
             }
-            if (String.IsNullOrEmpty(tmp2[0])) { 
+            if (String.IsNullOrEmpty(tmp2[0]))
+            {
                 variableNames.Hide();
             }
             else
             {
-                foreach (String s in tmp2)
+
+                for (int i = 0; i < formula.getVars().Count; i++)
                 {
-                    variablenNamen.Text += s;
+                    variablenNamen.Text += formula.getVars()[i] + " = ";
+                    try
+                    {
+                        variablenNamen.Text += tmp2[i] + " ";
+                    }
+                    catch (System.ArgumentOutOfRangeException)
+                    {
+                        //Problem konnte zeitlich nicht mehr behoben werden, jedoch sollte hier keine Exception fliegen, da es gleichviel Variablen wie Variablennamen geben soll
+                    }
+
+
+
                 }
-                variablenNamen.Text += " (Default-Formel Reihenfolge)";
+                //variablenNamen.Text += " (Default-Formel Reihenfolge)";
                 variablenNamen.BackColor = Color.DarkGray;
             }
 
@@ -145,7 +159,7 @@ namespace project_Formula
             int i = 0;
             foreach (char c in tmp3)
             {
-                if(labels[i] == null)
+                if (labels[i] == null)
                 {
                     labels[i] = new Label();
                     updowns[i] = new NumericUpDown();
@@ -181,7 +195,8 @@ namespace project_Formula
                 renderFormula(formula.getVersions()[umstellen_auf.SelectedIndex]);
                 currentVersion = new Formula(formula.getName(), formula.getVersions()[umstellen_auf.SelectedIndex], formula.getVarNames());
                 mkcalc(currentVersion);
-            }catch (ArgumentOutOfRangeException ex)
+            }
+            catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show("Es wurde keine Version für die ausgewählte Variable gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -223,6 +238,31 @@ namespace project_Formula
                 i++;
             }
             i = 0;
+            //Klammern durch geschwungene Klammern ersetzen, da unser Programm mit diesen arbeitet
+            while (i < sb.Length)
+            {
+                for (int j = 0; j < labels.Length - 1; j++)
+                {
+                    if (sb[i] == '(')
+                    {
+                        sb.Remove(i, 1);
+                        sb.Insert(i, '{');
+                    }
+                    else if (sb[i] == ')')
+                    {
+                        sb.Remove(i, 1);
+                        sb.Insert(i, '}');
+                    }
+                    else if (sb[i] == 'π')
+                    {
+                        string s = "" + Math.PI;
+                        sb.Remove(i, 1);
+                        sb.Insert(i, s);
+                    }
+                }
+                i++;
+            }
+            i = 0;
 
             //ab '=' abspalten
             StringBuilder cpy = new StringBuilder();
@@ -230,9 +270,9 @@ namespace project_Formula
             {
                 i++;
             }
-            while(i < sb.Length)
+            while (i < sb.Length)
             {
-                if(sb[i] != ' ')
+                if (sb[i] != ' ')
                 {
                     cpy.Append(sb[i]);
                 }
